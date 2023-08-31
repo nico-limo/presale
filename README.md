@@ -122,4 +122,4 @@ List of tools, frameworks, libraries, or APIs used in the project. You can also 
 
 ## Vercel Deployment
 
-Still not deployed
+[DEMO](https://presale-virid.vercel.app/)
