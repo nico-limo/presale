@@ -1,3 +1,37 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": { "browser": true, "es6": true },
+  "extends": "next/core-web-vitals",
+  "plugins": ["unused-imports", "import"],
+  "rules": {
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "import/order": [
+      "warn",
+      {
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ],
+
+    "no-shadow": "warn",
+    "consistent-return": "error",
+    "no-alert": "error"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  }
 }
