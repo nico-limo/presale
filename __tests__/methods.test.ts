@@ -1,5 +1,9 @@
-import { sum } from "@/utils/methods"
+import { truncateAddress } from "@/utils/methods"
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(sum(1, 2)).toBe(3)
+describe("truncateAddress", () => {
+  it("should truncate the address correctly", () => {
+    const address = "0x123456789abcdef123456789abcdef123456789a"
+    const truncated = truncateAddress(address)
+    expect(truncated).toEqual("0x12...789a")
+  })
 })

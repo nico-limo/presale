@@ -1,6 +1,11 @@
 import { Header, Container, Text } from "@mantine/core"
-import Walletconnect from "../Walletconnect"
+
+import dynamic from "next/dynamic"
 import { LAYOUT_HEIGHT, useStyles } from "@/styles/mantineStyles"
+
+const Walletconnect = dynamic(() => import("../Walletconnect"), {
+  ssr: false,
+})
 
 const Navbar = () => {
   const { classes } = useStyles()
