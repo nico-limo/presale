@@ -1,11 +1,30 @@
 import { MantineProvider } from "@mantine/core"
 import { AppProps } from "next/app"
 import Head from "next/head"
-import Layout from "@/components/Layout"
 import "@/styles/globals.css"
+import { WagmiConfig, configureChains, createConfig } from "wagmi"
+import { polygonMumbai } from "wagmi/chains"
+import { InjectedConnector } from "wagmi/connectors/injected"
+import { alchemyProvider } from "wagmi/providers/alchemy"
+import { publicProvider } from "wagmi/providers/public"
+import Layout from "@/components/Layout"
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
+
+  const { chains, publicClient } = configureChains(
+    [polygonMumbai],
+    [
+      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID! }),
+      publicProvider(),
+    ],
+  )
+
+  const config = createConfig({
+    autoConnect: true,
+    connectors: [new InjectedConnector({ chains })],
+    publicClient,
+  })
 
   return (
     <>
@@ -25,9 +44,11 @@ export default function App(props: AppProps) {
           colorScheme: "dark",
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <WagmiConfig config={config}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </WagmiConfig>
       </MantineProvider>
     </>
   )

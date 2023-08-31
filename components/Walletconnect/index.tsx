@@ -1,18 +1,24 @@
-"use client"
 import { Button } from "@mantine/core"
-import { useState } from "react"
+
+import { useAccount, useConnect } from "wagmi"
+import { disconnect } from "wagmi/actions"
 
 const Walletconnect = () => {
-  const [isConnected, setIsConnected] = useState(false)
+  const { address } = useAccount()
+  const { connect, connectors } = useConnect()
 
   const onConnect = (status: boolean) => {
-    setIsConnected(status)
+    if (status) {
+      connect({ connector: connectors[0] })
+    } else {
+      disconnect()
+    }
   }
 
-  if (isConnected)
+  if (address)
     return (
       <Button onClick={() => onConnect(false)} radius="lg" color="grape">
-        0x000...0000
+        {`${address.slice(0, 4)}...${address.slice(-4)}`}
       </Button>
     )
 

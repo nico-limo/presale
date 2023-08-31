@@ -1,4 +1,3 @@
-"use client"
 import { Card, Flex, Text } from "@mantine/core"
 import ReactCountdown, { CountdownRenderProps } from "react-countdown"
 
