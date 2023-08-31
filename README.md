@@ -52,6 +52,10 @@ Your work will be evaluated based on:
 4. Testing: Are there sufficient tests, and are they carried out using Jest?
 5. Documentation: Does the readme file effectively explain the project, how to run it, and any key decisions or assumptions made?
 
+## Task Board
+
+To show the progress on the project. I created a [Github Board](https://github.com/users/nico-limo/projects/6/views/1), where I link the PR with the ticket.
+
 ## Requirements
 
 To run this project, you'll need:
