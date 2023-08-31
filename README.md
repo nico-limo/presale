@@ -119,7 +119,6 @@ List of tools, frameworks, libraries, or APIs used in the project. You can also 
 - [Prettier](https://prettier.io/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Husky](https://typicode.github.io/husky/)
-- [Tailwind CSS](https://tailwindcss.com/)
 
 ## Vercel Deployment
 
