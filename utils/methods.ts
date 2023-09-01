@@ -1,6 +1,8 @@
 import { DECIMALS, NO_DECIMAL } from "./constants"
 import { ADDRESS, AmountType } from "@/types/variables"
 
+const ONLY_NUMBER = /^[0-9]*\.?[0-9]*$/
+
 /**
  * Truncates the given Ethereum address by displaying only the first and last four characters.
  *
@@ -91,4 +93,44 @@ export const formatAmount = (
   }
 
   return formattedAmount
+}
+
+/**
+ * Format a numeric string input value to allow only valid number inputs
+ * @param {string} value - The numeric string input value to format
+ * @param {string} currentValue - The numeric string current value
+ * @returns {string} - The formatted input value as a string
+ */
+export const formatInputValue = (
+  value: string,
+  currentValue: string,
+): string => {
+  if (["", "0"].includes(value)) {
+    return "0"
+  }
+
+  if (value === ".") {
+    return "0."
+  }
+
+  const match = value.match(ONLY_NUMBER)
+
+  if (match && match[0].length === value.length) {
+    let newValue = value
+    if (newValue.startsWith("0") && newValue.charAt(1) !== ".") {
+      newValue = newValue.replace("0", "")
+    }
+    const decimalIndex = newValue.indexOf(".")
+    if (
+      decimalIndex !== -1 &&
+      newValue.substring(decimalIndex + 1).length > 18
+    ) {
+      const lastItem = newValue.charAt(newValue.length - 1)
+      newValue = newValue.substring(0, decimalIndex + 18).concat(lastItem)
+    }
+
+    return newValue
+  }
+
+  return currentValue
 }

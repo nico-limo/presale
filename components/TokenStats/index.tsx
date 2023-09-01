@@ -2,13 +2,7 @@ import { Text, Progress, Card } from "@mantine/core"
 import { TOTAL_PER_STAGE, TSTK_TOKEN } from "@/utils/constants"
 import { calculatePercentage, formatAmount } from "@/utils/methods"
 
-const TokenStats = ({
-  availableAmount,
-  price,
-}: {
-  availableAmount: string
-  price: string
-}) => {
+const TokenStats = ({ availableAmount }: { availableAmount: string }) => {
   const percentage = calculatePercentage(availableAmount, TOTAL_PER_STAGE)
   const formatAvailable = formatAmount(availableAmount, "number")
   const formatTotal = formatAmount(TOTAL_PER_STAGE, "number")

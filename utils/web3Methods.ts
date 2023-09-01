@@ -32,15 +32,23 @@ export const getPresaleData = async () => {
         },
         {
           ...contract_presale,
-          functionName: "currentStagePrice",
-        },
-        {
-          ...contract_presale,
           functionName: "blockStart",
         },
         {
           ...contract_presale,
           functionName: "currentStageBlockStart",
+        },
+        {
+          ...contract_presale,
+          functionName: "STAGE_PRICE_INCREMENT",
+        },
+        {
+          ...contract_presale,
+          functionName: "UNIT_PRICE",
+        },
+        {
+          ...contract_presale,
+          functionName: "STAGE_MAX_WALLET_BUY",
         },
       ],
     })
@@ -48,27 +56,33 @@ export const getPresaleData = async () => {
       stageBlockDuration,
       currentStage,
       currentStageAvailableAmount,
-      currentStagePrice,
       blockStart,
       currentStageBlockStart,
+      stagePriceIncrement,
+      unitPrice,
+      maxWalletBuy,
     ] = dataResults.map((f) => f.result)
 
     return {
       blockDuration: stageBlockDuration as bigint,
       currentStage: currentStage as bigint,
       availableAmount: currentStageAvailableAmount as bigint,
-      price: currentStagePrice as bigint,
       blockStart: blockStart as bigint,
       currentStageBlockStart: currentStageBlockStart as bigint,
+      stagePriceIncrement: stagePriceIncrement as bigint,
+      unitPrice: unitPrice as bigint,
+      maxWalletBuy: maxWalletBuy as bigint,
     }
   } catch {
     return {
       blockDuration: zeroBigInt,
       currentStage: zeroBigInt,
       availableAmount: zeroBigInt,
-      price: zeroBigInt,
       blockStart: zeroBigInt,
       currentStageBlockStart: zeroBigInt,
+      stagePriceIncrement: zeroBigInt,
+      unitPrice: zeroBigInt,
+      maxWalletBuy: zeroBigInt,
     }
   }
 }
@@ -78,7 +92,7 @@ export const getPresaleData = async () => {
  * @param {ADDRESS} account - The address of the account making the purchase.
  * @returns The transaction hash of the purchase transaction.
  */
-export const buyToken = async (account: ADDRESS) => {
+export const buyToken = async (account: ADDRESS, amount: bigint) => {
   const walletClient = createWalletClient({
     chain: polygonMumbai,
     transport: custom(window.ethereum),
@@ -87,7 +101,7 @@ export const buyToken = async (account: ADDRESS) => {
     address: contract_presale.address,
     abi: contract_presale.abi,
     functionName: "tokenSale",
-    args: [zeroBigInt],
+    args: [amount],
     account,
   })
   const transaction = await client.waitForTransactionReceipt({ hash })
