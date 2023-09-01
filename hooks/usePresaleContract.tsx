@@ -52,7 +52,7 @@ const usePresaleContract = () => {
     blockStart: "0",
     currentStageBlockStart: "0",
     maxWalletBuy: zeroBigInt,
-    timestamp: null,
+    timestamp: Number("1") * THOUSAND_SEC,
     maxTokens: "0",
   })
   const [isLoading, setIsLoading] = useState(true)
