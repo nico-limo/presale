@@ -22,16 +22,16 @@ The App will allow the user to enter the amount to buy, calculate the price to p
 
 ## Challenge Requirements
 
-1. NextJS: The app needs to be built using the Next.js framework. This is a production-ready framework that allows for building static sites, server-rendered apps, or a combination of both.
-2. React: You should have a good understanding of React and its concepts like hooks, context, and components lifecycle.
-3. Mantine UI components library: You are expected to use this library for designing the UI of the app. You may start with the provided template: https://github.com/mantinedev/next-pages-template
-4. TypeScript: The application should be fully typed with TypeScript.
-5. ESLint and Prettier: Code should be linted with ESLint and formatted with Prettier.
-6. Jest: Write tests for your components using Jest.
-7. Wagmi and ConnectKit: Use these tools to facilitate the blockchain-related operations in the application.
-8. Github: Use Github for version control and code collaboration.
-9. Vercel: Deploy the app on Vercel.
-10. Polygon Testnet: Use the provided smart contracts on the Polygon Testnet.
+1. [x] NextJS: The app needs to be built using the Next.js framework. This is a production-ready framework that allows for building static sites, server-rendered apps, or a combination of both.
+2. [x] React: You should have a good understanding of React and its concepts like hooks, context, and components lifecycle.
+3. [x] Mantine UI components library: You are expected to use this library for designing the UI of the app. You may start with the provided template: https://github.com/mantinedev/next-pages-template
+4. [x] TypeScript: The application should be fully typed with TypeScript.
+5. [x] ESLint and Prettier: Code should be linted with ESLint and formatted with Prettier.
+6. [x] Jest: Write tests for your components using Jest.
+7. [x] Wagmi and ConnectKit: Use these tools to facilitate the blockchain-related operations in the application.
+8. [x] Github: Use Github for version control and code collaboration.
+9. [x] Vercel: Deploy the app on Vercel.
+10. [x] Polygon Testnet: Use the provided smart contracts on the Polygon Testnet.
 
 ## Submission
 
