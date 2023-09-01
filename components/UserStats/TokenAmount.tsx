@@ -11,7 +11,7 @@ import { TSTK_TOKEN } from "@/utils/constants"
  * @param {ADDRESS} address - The Ethereum address for which the token amount will be displayed.
  * @returns {JSX.Element} JSX element displaying the token amount.
  */
-const TokenAmount = ({ address }: { address: ADDRESS | undefined }) => {
+const TokenAmount = ({ address }: { address: ADDRESS }) => {
   // Using the useContractRead hook from Wagmi to read the balanceOf function of the token contract
   const { data, isLoading } = useContractRead({
     address: TSTK_TOKEN.address as ADDRESS,
@@ -21,14 +21,14 @@ const TokenAmount = ({ address }: { address: ADDRESS | undefined }) => {
     watch: true, // This will update the state every X seconds, is similar like a timeoout, that mean it will happend always
   })
 
-  if (isLoading) return <Skeleton />
-
   const formatAmount = formatUnits(data as bigint, TSTK_TOKEN.decimals)
 
   return (
-    <Text fz="lg" fw={500}>
-      {formatAmount} {TSTK_TOKEN.symbol}
-    </Text>
+    <Skeleton visible={isLoading}>
+      <Text fz="lg" fw={500}>
+        {formatAmount} {TSTK_TOKEN.symbol}
+      </Text>
+    </Skeleton>
   )
 }
 
