@@ -42,6 +42,13 @@ export default function App(props: AppProps) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: "dark",
+          components: {
+            InputWrapper: {
+              defaultProps: {
+                inputWrapperOrder: ["label", "error", "input", "description"],
+              },
+            },
+          },
         }}
       >
         <WagmiConfig config={config}>
