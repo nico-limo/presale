@@ -18,10 +18,10 @@ const Countdown = ({ timestamp }: { timestamp: number }) => {
           return (
             <Flex direction="column" key={index} align="center" gap={5}>
               <Flex gap={5}>
-                <Card bg="blue" fw={500}>
+                <Card w={40} bg="blue" fw={500}>
                   {item.toString().slice(0, 1) || "0"}
                 </Card>
-                <Card bg="blue" fw={500}>
+                <Card w={40} bg="blue" fw={500}>
                   {item.toString().slice(1, 2) || "0"}
                 </Card>
               </Flex>
