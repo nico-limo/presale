@@ -92,7 +92,11 @@ export const getPresaleData = async () => {
  * @param {ADDRESS} account - The address of the account making the purchase.
  * @returns The transaction hash of the purchase transaction.
  */
-export const buyToken = async (account: ADDRESS, amount: bigint) => {
+export const buyToken = async (
+  account: ADDRESS,
+  amount: bigint,
+  payment: bigint,
+) => {
   const walletClient = createWalletClient({
     chain: polygonMumbai,
     transport: custom(window.ethereum),
@@ -102,6 +106,7 @@ export const buyToken = async (account: ADDRESS, amount: bigint) => {
     abi: contract_presale.abi,
     functionName: "tokenSale",
     args: [amount],
+    value: payment,
     account,
   })
   const transaction = await client.waitForTransactionReceipt({ hash })

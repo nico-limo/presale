@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core"
 import React, { useState } from "react"
-import { parseEther } from "viem"
+import { formatUnits, parseEther } from "viem"
 import { useAccount } from "wagmi"
 import { zeroBigInt } from "@/utils/constants"
 import { buyToken } from "@/utils/web3Methods"
@@ -8,18 +8,24 @@ import { buyToken } from "@/utils/web3Methods"
 const BuyToken = ({
   amount,
   maxLimitBut,
+  payment,
 }: {
   amount: string
   maxLimitBut: bigint
+  payment: bigint
 }) => {
   const { address, isConnected } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
-  const parseAmount = parseEther(amount)
+  const parsedAmount = parseEther(amount)
+
+  const totalPayment = payment * parsedAmount
+  const formatPayment = formatUnits(totalPayment, 36)
+  const parsedPament = parseEther(formatPayment)
 
   const isDisabled = () => {
     if (!isConnected) return true
-    if (parseAmount === zeroBigInt) return true
-    if (parseAmount > maxLimitBut) return true
+    if (parsedAmount === zeroBigInt) return true
+    if (parsedAmount > maxLimitBut) return true
     return false
   }
 
@@ -27,11 +33,12 @@ const BuyToken = ({
     try {
       setIsLoading(true)
       if (address) {
-        const result = await buyToken(address, parseAmount)
+        const result = await buyToken(address, parsedAmount, parsedPament)
         console.log("result ", result)
         setIsLoading(false)
       }
-    } catch {
+    } catch (error) {
+      console.log("ERROR ", error)
       setIsLoading(false)
     }
   }

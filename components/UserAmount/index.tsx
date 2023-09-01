@@ -1,8 +1,7 @@
 import { Card, Flex, TextInput } from "@mantine/core"
 import { useState } from "react"
-import { formatUnits, parseUnits } from "viem"
 import BuyToken from "../Web3Buttons/BuyToken"
-import { formatAmount, formatInputValue } from "@/utils/methods"
+import { calculatePrice, formatInputValue } from "@/utils/methods"
 
 const UserAmount = ({ price, maxBuy }: { price: bigint; maxBuy: bigint }) => {
   const [inputValue, setInputValue] = useState("")
@@ -12,18 +11,6 @@ const UserAmount = ({ price, maxBuy }: { price: bigint; maxBuy: bigint }) => {
     setInputValue(newValue)
   }
 
-  const calculatePrice = (amount: string) => {
-    if (["", "0", "0."].includes(amount)) {
-      const formatPrice = formatUnits(price, 18)
-      return formatAmount(formatPrice, "price", 18)
-    }
-    const amountParsed = parseUnits(amount, 18)
-
-    const result = amountParsed * price
-    // Here we add the decimals from the amountParsed + the price decimals
-    const formatResult = formatUnits(result, 36)
-    return formatAmount(formatResult, "price", 18)
-  }
   return (
     <Card
       withBorder
@@ -40,10 +27,10 @@ const UserAmount = ({ price, maxBuy }: { price: bigint; maxBuy: bigint }) => {
           placeholder="Amount to buy"
           value={inputValue}
           label="Buy Token"
-          description={calculatePrice(inputValue)}
+          description={calculatePrice(inputValue, price)}
           onChange={(e) => handleInputChange(e.target.value)}
         />
-        <BuyToken amount={inputValue} maxLimitBut={maxBuy} />
+        <BuyToken amount={inputValue} maxLimitBut={maxBuy} payment={price} />
       </Flex>
     </Card>
   )

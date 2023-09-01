@@ -1,3 +1,4 @@
+import { formatUnits, parseUnits } from "viem"
 import { DECIMALS, NO_DECIMAL } from "./constants"
 import { ADDRESS, AmountType } from "@/types/variables"
 
@@ -133,4 +134,24 @@ export const formatInputValue = (
   }
 
   return currentValue
+}
+
+/**
+ * Calculate the total price based on the given amount and price in BigInt.
+ *
+ * @param {string} amount - The amount to calculate the total price for (in string format).
+ * @param {bigint} price - The price per unit (in BigInt format).
+ * @returns {string} The total price formatted as a string with the appropriate decimals and symbol.
+ */
+export const calculatePrice = (amount: string, price: bigint) => {
+  if (["", "."].includes(amount) || Number(amount) === 0) {
+    const formatPrice = formatUnits(price, 18)
+    return formatAmount(formatPrice, "price", 8)
+  }
+  const amountParsed = parseUnits(amount, 18)
+
+  const result = amountParsed * price
+  // Here we add the decimals from the amountParsed + the price decimals
+  const formatResult = formatUnits(result, 36)
+  return formatAmount(formatResult, "price", 8)
 }
