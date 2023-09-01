@@ -1,7 +1,7 @@
 import { Card, Flex, Text } from "@mantine/core"
 import ReactCountdown, { CountdownRenderProps } from "react-countdown"
 
-const Countdown = () => {
+const Countdown = ({ timestamp }: { timestamp: number }) => {
   const returnComponent = (dateInformation: CountdownRenderProps) => {
     const { days, minutes, hours, seconds } = dateInformation
 
@@ -32,6 +32,7 @@ const Countdown = () => {
       </Flex>
     )
   }
+
   return (
     <Card
       withBorder
@@ -47,7 +48,7 @@ const Countdown = () => {
         Time Until next stage
       </Text>
       <ReactCountdown
-        date={Date.now() + 1000000000}
+        date={Date.now() + timestamp}
         renderer={(data) => returnComponent(data)}
       />
     </Card>
