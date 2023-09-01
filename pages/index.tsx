@@ -27,7 +27,9 @@ export default function Home() {
         <meta name="description" content="A challenge" />
       </Head>
       <Flex className="container" direction="column" gap={20}>
-        {timestamp ? <Countdown timestamp={timestamp} /> : null}
+        <Skeleton visible={isLoading}>
+          <Countdown timestamp={timestamp} />
+        </Skeleton>
 
         <Skeleton visible={isLoading}>
           <UserStats maxWalletBuy={maxWalletBuy} />
