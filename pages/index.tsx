@@ -18,7 +18,7 @@ const TokenStats = dynamic(() => import("@/components/TokenStats"), {
 
 export default function Home() {
   const { data, refetch } = usePresaleContract()
-  const { availableAmount, price, maxWalletBuy } = data
+  const { availableAmount, price, maxWalletBuy, timestamp } = data
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function Home() {
         <meta name="description" content="A challenge" />
       </Head>
       <Flex className="container" direction="column" gap={20}>
-        <Countdown />
+        {timestamp ? <Countdown timestamp={timestamp} /> : null}
         <Flex gap={20} justify="space-between" align="center" w="100%">
           <UserStats />
           <TokenStats availableAmount={availableAmount} />

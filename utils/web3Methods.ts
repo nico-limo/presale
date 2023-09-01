@@ -112,3 +112,5 @@ export const buyToken = async (
   const transaction = await client.waitForTransactionReceipt({ hash })
   return transaction.transactionHash
 }
+
+export const getCurrentBlock = () => client.getBlock()
