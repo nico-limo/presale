@@ -15,7 +15,7 @@ const UserAmount = dynamic(() => import("@/components/UserAmount"), {
 })
 
 export default function Home() {
-  const { availableAmount, price } = usePresaleContract()
+  const { availableAmount, price, maxWalletBuy } = usePresaleContract()
   return (
     <>
       <Head key="PRESALE">
@@ -26,9 +26,9 @@ export default function Home() {
         <Countdown />
         <Flex gap={20} justify="space-between" align="center" w="100%">
           <UserStats />
-          <TokenStats availableAmount={availableAmount} price={price} />
+          <TokenStats availableAmount={availableAmount} />
         </Flex>
-        <UserAmount />
+        <UserAmount price={price} maxBuy={maxWalletBuy} />
       </Flex>
     </>
   )

@@ -11,8 +11,9 @@ export interface TOKEN {
 export interface PRESALE {
   currentStage: string
   availableAmount: string
-  price: string
+  price: bigint
   blockDuration: string
   blockStart: string
   currentStageBlockStart: string
+  maxWalletBuy: bigint
 }
