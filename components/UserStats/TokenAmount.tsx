@@ -1,9 +1,11 @@
-import { Skeleton, Text } from "@mantine/core"
+import { Progress, Skeleton, Text } from "@mantine/core"
 import { formatUnits } from "viem"
 import { useContractRead } from "wagmi"
 import { ADDRESS } from "@/types/variables"
 import token_abi from "@/utils/abis/token.json"
 import { TSTK_TOKEN } from "@/utils/constants"
+import { contract_presale } from "@/utils/contract"
+import { calculatePercentage, formatAmount } from "@/utils/methods"
 
 /**
  * Displays the token amount of a specified address using Wagmi hooks.
@@ -11,7 +13,13 @@ import { TSTK_TOKEN } from "@/utils/constants"
  * @param {ADDRESS} address - The Ethereum address for which the token amount will be displayed.
  * @returns {JSX.Element} JSX element displaying the token amount.
  */
-const TokenAmount = ({ address }: { address: ADDRESS }) => {
+const TokenAmount = ({
+  address,
+  maxWalletBuy,
+}: {
+  address: ADDRESS
+  maxWalletBuy: bigint
+}) => {
   // Using the useContractRead hook from Wagmi to read the balanceOf function of the token contract
   const { data, isLoading } = useContractRead({
     address: TSTK_TOKEN.address as ADDRESS,
@@ -20,14 +28,31 @@ const TokenAmount = ({ address }: { address: ADDRESS }) => {
     args: [address],
     watch: true, // This will update the state every X seconds, is similar like a timeoout, that mean it will happend always
   })
+  const { data: soldAmount, isLoading: loadingAmount } = useContractRead({
+    address: contract_presale.address,
+    abi: contract_presale.abi,
+    functionName: "currentStageSoldAmount",
+    args: [address],
+    watch: true, // This will update the state every X seconds, is similar like a timeoout, that mean it will happend always
+  })
 
-  const formatAmount = formatUnits(data as bigint, TSTK_TOKEN.decimals)
+  const formatMaxWallet = formatUnits(maxWalletBuy, 18)
+  const formatterMaxWallet = formatAmount(formatMaxWallet, "number")
+  const formatBalance = formatUnits(data as bigint, TSTK_TOKEN.decimals)
+  const formatterBalance = formatAmount(formatBalance, "number")
+  const formatSoldAmountStage = formatUnits(soldAmount as bigint, 18)
+  const formatterSoldAmountStage = formatAmount(formatSoldAmountStage, "number")
+  const percentage = calculatePercentage(formatSoldAmountStage, formatMaxWallet)
 
   return (
-    <Skeleton visible={isLoading}>
-      <Text fz="lg" fw={500}>
-        {formatAmount} {TSTK_TOKEN.symbol}
+    <Skeleton visible={isLoading && loadingAmount}>
+      <Text fz="md" fw={500}>
+        {formatterBalance} User Balance
       </Text>
+      <Text fz="lg" fw={500}>
+        {formatterSoldAmountStage} / {formatterMaxWallet}
+      </Text>
+      <Progress value={percentage} mt="md" size="lg" radius="xl" />
     </Skeleton>
   )
 }

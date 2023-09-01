@@ -16,5 +16,6 @@ export interface PRESALE {
   blockStart: string
   currentStageBlockStart: string
   maxWalletBuy: bigint
+  maxTokens: string
   timestamp: number | null
 }

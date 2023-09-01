@@ -14,9 +14,11 @@ const fetchData = async () => {
     stagePriceIncrement,
     unitPrice,
     maxWalletBuy,
+    maxTokens,
   } = await getPresaleData()
 
   const formatAvailableAmount = formatUnits(availableAmount, 18)
+  const formatMaxTokens = formatUnits(maxTokens, 18)
   const formatBlockDuration = formatUnits(blockDuration, 0)
   const formatCurrentStage = formatUnits(currentStage, 0)
   const formatBlockStart = formatUnits(blockStart, 0)
@@ -36,6 +38,7 @@ const fetchData = async () => {
     blockStart: formatBlockStart,
     currentStageBlockStart: formatCurrentStageBlockStart,
     maxWalletBuy,
+    maxTokens: formatMaxTokens,
     timestamp: Number(timestamp) * THOUSAND_SEC,
   }
 }
@@ -50,10 +53,17 @@ const usePresaleContract = () => {
     currentStageBlockStart: "0",
     maxWalletBuy: zeroBigInt,
     timestamp: null,
+    maxTokens: "0",
   })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    fetchData().then((newData) => setData(newData))
+    fetchData()
+      .then((newData) => {
+        setData(newData)
+        setIsLoading(false)
+      })
+      .catch(() => setIsLoading(false))
   }, [])
 
   // refetch is a controlled update state, here we call this function and it will only happen when we send it
@@ -62,7 +72,7 @@ const usePresaleContract = () => {
     setData(newData)
   }
 
-  return { data, refetch }
+  return { data, refetch, isLoading }
 }
 
 export default usePresaleContract
