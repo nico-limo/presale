@@ -145,7 +145,6 @@ export const formatInputValue = (
  * @returns {string} The total price formatted as a string with the appropriate decimals and symbol.
  */
 export const calculatePrice = (amount: string, price: bigint) => {
-  if (!amount) return "0"
   if (["", "."].includes(amount) || Number(amount) === 0) {
     const formatPrice = formatUnits(price, 18)
     return formatAmount(formatPrice, "price", 8)
