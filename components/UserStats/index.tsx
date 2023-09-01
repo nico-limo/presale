@@ -1,12 +1,13 @@
 import { Text, Card } from "@mantine/core"
 import dynamic from "next/dynamic"
 import { useAccount } from "wagmi"
+import { TSTK_TOKEN } from "@/utils/constants"
 
 const TokenAmount = dynamic(() => import("./TokenAmount"), {
   ssr: false,
 })
 
-const UserStats = () => {
+const UserStats = ({ maxWalletBuy }: { maxWalletBuy: bigint }) => {
   const { address } = useAccount()
 
   return (
@@ -21,10 +22,10 @@ const UserStats = () => {
       })}
     >
       <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-        User Total Purchase
+        User {TSTK_TOKEN.symbol} Balance
       </Text>
       {address ? (
-        <TokenAmount address={address} />
+        <TokenAmount address={address} maxWalletBuy={maxWalletBuy} />
       ) : (
         <Text>Connect Wallet</Text>
       )}

@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core"
+import { Flex, Skeleton } from "@mantine/core"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import usePresaleContract from "@/hooks/usePresaleContract"
@@ -17,8 +17,8 @@ const TokenStats = dynamic(() => import("@/components/TokenStats"), {
 })
 
 export default function Home() {
-  const { data, refetch } = usePresaleContract()
-  const { availableAmount, price, maxWalletBuy, timestamp } = data
+  const { data, refetch, isLoading } = usePresaleContract()
+  const { availableAmount, price, maxWalletBuy, timestamp, maxTokens } = data
 
   return (
     <>
@@ -28,10 +28,14 @@ export default function Home() {
       </Head>
       <Flex className="container" direction="column" gap={20}>
         {timestamp ? <Countdown timestamp={timestamp} /> : null}
-        <Flex gap={20} justify="space-between" align="center" w="100%">
-          <UserStats />
-          <TokenStats availableAmount={availableAmount} />
-        </Flex>
+
+        <Skeleton visible={isLoading}>
+          <UserStats maxWalletBuy={maxWalletBuy} />
+        </Skeleton>
+        <Skeleton visible={isLoading}>
+          <TokenStats availableAmount={availableAmount} maxTokens={maxTokens} />
+        </Skeleton>
+
         <UserAmount price={price} maxBuy={maxWalletBuy} refetch={refetch} />
       </Flex>
     </>

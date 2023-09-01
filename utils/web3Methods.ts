@@ -50,6 +50,10 @@ export const getPresaleData = async () => {
           ...contract_presale,
           functionName: "STAGE_MAX_WALLET_BUY",
         },
+        {
+          ...contract_presale,
+          functionName: "STAGE_MAX_TOKENS",
+        },
       ],
     })
     const [
@@ -61,6 +65,7 @@ export const getPresaleData = async () => {
       stagePriceIncrement,
       unitPrice,
       maxWalletBuy,
+      maxTokens,
     ] = dataResults.map((f) => f.result)
 
     return {
@@ -72,6 +77,7 @@ export const getPresaleData = async () => {
       stagePriceIncrement: stagePriceIncrement as bigint,
       unitPrice: unitPrice as bigint,
       maxWalletBuy: maxWalletBuy as bigint,
+      maxTokens: maxTokens as bigint,
     }
   } catch {
     return {
@@ -83,6 +89,7 @@ export const getPresaleData = async () => {
       stagePriceIncrement: zeroBigInt,
       unitPrice: zeroBigInt,
       maxWalletBuy: zeroBigInt,
+      maxTokens: zeroBigInt,
     }
   }
 }
