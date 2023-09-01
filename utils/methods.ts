@@ -40,10 +40,11 @@ export const calculatePercentage = (value: string, total: string): number => {
  * @returns {string} The formatted `amount` as a string.
  */
 export const formatAmount = (
-  amount: string,
+  amount: string | undefined,
   type: AmountType,
   decimals?: number,
 ): string => {
+  if (!amount) return ""
   const decimalSeparator = "."
   const thousandSeparator = ","
   const decimalPartIndex = amount.indexOf(decimalSeparator)
@@ -144,6 +145,7 @@ export const formatInputValue = (
  * @returns {string} The total price formatted as a string with the appropriate decimals and symbol.
  */
 export const calculatePrice = (amount: string, price: bigint) => {
+  if (!amount) return "0"
   if (["", "."].includes(amount) || Number(amount) === 0) {
     const formatPrice = formatUnits(price, 18)
     return formatAmount(formatPrice, "price", 8)
