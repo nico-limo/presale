@@ -37,7 +37,7 @@ const usePresaleContract = () => {
         0,
       )
 
-      const price = unitPrice + stagePriceIncrement * currentStage
+      const price = unitPrice + stagePriceIncrement * (currentStage - BigInt(1))
 
       setData({
         currentStage: formatCurrentStage,
