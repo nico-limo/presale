@@ -17,15 +17,17 @@ const TokenStats = dynamic(() => import("@/components/TokenStats"), {
 })
 
 export default function Home() {
-  const { data, refetch } = usePresaleContract()
+  const { data, refetch, isLoading } = usePresaleContract()
   const { availableAmount, price, maxWalletBuy } = data
 
+  if (isLoading) return null
   return (
     <>
       <Head key="PRESALE">
         <title>Presale</title>
         <meta name="description" content="A challenge" />
       </Head>
+
       <Flex className="container" direction="column" gap={20}>
         <Countdown />
         <Flex gap={20} justify="space-between" align="center" w="100%">
