@@ -119,6 +119,11 @@ List of tools, frameworks, libraries, or APIs used in the project. You can also 
 - [Prettier](https://prettier.io/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Husky](https://typicode.github.io/husky/)
+- [Jest](https://jestjs.io/)
+- [Mantine](https://mantine.dev/)
+- [Viem](https://viem.sh/)
+- [Wagmi](https://wagmi.sh/)
+- [react-countdown](https://www.npmjs.com/package/react-countdown)
 
 ## Vercel Deployment
 
