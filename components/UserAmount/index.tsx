@@ -3,7 +3,15 @@ import { useState } from "react"
 import BuyToken from "../Web3Buttons/BuyToken"
 import { calculatePrice, formatInputValue } from "@/utils/methods"
 
-const UserAmount = ({ price, maxBuy }: { price: bigint; maxBuy: bigint }) => {
+const UserAmount = ({
+  price,
+  maxBuy,
+  refetch,
+}: {
+  price: bigint
+  maxBuy: bigint
+  refetch: () => Promise<void>
+}) => {
   const [inputValue, setInputValue] = useState("")
 
   const handleInputChange = (value: string) => {
@@ -30,7 +38,12 @@ const UserAmount = ({ price, maxBuy }: { price: bigint; maxBuy: bigint }) => {
           description={calculatePrice(inputValue, price)}
           onChange={(e) => handleInputChange(e.target.value)}
         />
-        <BuyToken amount={inputValue} maxLimitBut={maxBuy} payment={price} />
+        <BuyToken
+          amount={inputValue}
+          maxLimitBut={maxBuy}
+          payment={price}
+          refetch={refetch}
+        />
       </Flex>
     </Card>
   )

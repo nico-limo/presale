@@ -18,6 +18,7 @@ const TokenAmount = ({ address }: { address: ADDRESS | undefined }) => {
     abi: token_abi,
     functionName: "balanceOf",
     args: [address],
+    watch: true, // This will update the state every X seconds, is similar like a timeoout, that mean it will happend always
   })
 
   if (isLoading) return <Skeleton />

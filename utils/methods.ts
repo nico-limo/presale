@@ -40,10 +40,11 @@ export const calculatePercentage = (value: string, total: string): number => {
  * @returns {string} The formatted `amount` as a string.
  */
 export const formatAmount = (
-  amount: string,
+  amount: string | undefined,
   type: AmountType,
   decimals?: number,
 ): string => {
+  if (!amount) return ""
   const decimalSeparator = "."
   const thousandSeparator = ","
   const decimalPartIndex = amount.indexOf(decimalSeparator)

@@ -9,17 +9,19 @@ const BuyToken = ({
   amount,
   maxLimitBut,
   payment,
+  refetch,
 }: {
   amount: string
   maxLimitBut: bigint
   payment: bigint
+  refetch: () => Promise<void>
 }) => {
   const { address, isConnected } = useAccount()
   const [isLoading, setIsLoading] = useState(false)
   const parsedAmount = parseEther(amount)
 
   const totalPayment = payment * parsedAmount
-  const formatPayment = formatUnits(totalPayment, 36)
+  const formatPayment = formatUnits(totalPayment, 36) // Here the decimals are added when you multiply a value
   const parsedPament = parseEther(formatPayment)
 
   const isDisabled = () => {
@@ -33,12 +35,12 @@ const BuyToken = ({
     try {
       setIsLoading(true)
       if (address) {
-        const result = await buyToken(address, parsedAmount, parsedPament)
-        console.log("result ", result)
+        await buyToken(address, parsedAmount, parsedPament)
+
+        await refetch()
         setIsLoading(false)
       }
-    } catch (error) {
-      console.log("ERROR ", error)
+    } catch {
       setIsLoading(false)
     }
   }
