@@ -14,7 +14,6 @@ const usePresaleContract = () => {
     currentStageBlockStart: "0",
     maxWalletBuy: zeroBigInt,
   })
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +48,6 @@ const usePresaleContract = () => {
         currentStageBlockStart: formatCurrentStageBlockStart,
         maxWalletBuy,
       })
-      setIsLoading(false)
     }
     fetchData()
   }, [])
@@ -85,7 +83,7 @@ const usePresaleContract = () => {
     })
   }
 
-  return { data, refetch, isLoading }
+  return { data, refetch }
 }
 
 export default usePresaleContract
