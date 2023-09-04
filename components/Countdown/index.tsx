@@ -3,21 +3,26 @@ import ReactCountdown, { CountdownRenderProps } from "react-countdown"
 
 const Countdown = ({ timestamp }: { timestamp: number }) => {
   const returnComponent = (dateInformation: CountdownRenderProps) => {
-    const { days, minutes, hours, seconds } = dateInformation
+    const { minutes, hours, seconds } = dateInformation
 
-    const items = [days, hours, minutes, seconds]
+    const items = [hours, minutes, seconds]
     const texts = {
-      0: "Days",
-      1: "Hours",
-      2: "Minutes",
-      3: "Seconds",
+      0: "Hours",
+      1: "Minutes",
+      2: "Seconds",
     }
     return (
       <Flex w="100%" gap={10}>
         {items.map((item, index) => {
           return (
-            <Flex direction="column" key={index} align="center" gap={5}>
-              <Flex gap={5}>
+            <Flex
+              direction="column"
+              key={index}
+              align="center"
+              w="100%"
+              gap={5}
+            >
+              <Flex gap={5} w="100%">
                 <Card w={40} bg="blue" fw={500}>
                   {item.toString().slice(0, 1) || "0"}
                 </Card>
