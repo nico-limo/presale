@@ -20,6 +20,7 @@ export default function Home() {
   const { data, refetch, isLoading } = usePresaleContract()
   const { availableAmount, price, maxWalletBuy, timestamp, maxTokens } = data
 
+  console.log("data ", data)
   return (
     <>
       <Head key="PRESALE">
