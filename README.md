@@ -61,7 +61,7 @@ To show the progress on the project. I created a [Github Board](https://github.c
 To run this project, you'll need:
 
 - Node.js version 18 or higher installed on your computer.
-- Pnpm package manager installed on your computer.
+- Yarn package manager installed on your computer.
 - Metamask wallet extension installed on your browser. You can download and install it from [metamask.io](https://metamask.io/).
 
 ## Prettier and ESLint Configuration
@@ -87,14 +87,12 @@ To ensure that Prettier and ESLint are properly configured and operational in yo
 To get started with this project, follow these steps:
 
 1. Install Node.js 18 or higher on your computer. You can download it from [nodejs.org](https://nodejs.org/).
-2. Install the project dependencies using either Yarn, npm or Pnpm.
+2. Install the project dependencies using either Yarn, npm.
 
 ```bash
 npm install
 # or
 yarn add
-# or
-pnpm install
 ```
 
 3. Start the development server by running one of this command in the terminal.
@@ -103,8 +101,6 @@ pnpm install
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
 ```
 
 4. Open your browser and navigate to `http://localhost:3000` to view the application.
