@@ -5,8 +5,8 @@ import "@/styles/globals.css"
 import { useEffect, useState } from "react"
 import { WagmiConfig, createConfig } from "wagmi"
 import { polygonMumbai } from "wagmi/chains"
-import Layout from "@/components/Layout"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
+import Layout from "@/components/Layout"
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
