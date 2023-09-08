@@ -1,30 +1,32 @@
 import { MantineProvider } from "@mantine/core"
+import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import { AppProps } from "next/app"
 import Head from "next/head"
 import "@/styles/globals.css"
-import { WagmiConfig, configureChains, createConfig } from "wagmi"
+import { useEffect, useState } from "react"
+import { WagmiConfig, createConfig } from "wagmi"
 import { polygonMumbai } from "wagmi/chains"
-import { InjectedConnector } from "wagmi/connectors/injected"
-import { alchemyProvider } from "wagmi/providers/alchemy"
-import { publicProvider } from "wagmi/providers/public"
 import Layout from "@/components/Layout"
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
-  const { chains, publicClient } = configureChains(
-    [polygonMumbai],
-    [
-      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID! }),
-      publicProvider(),
-    ],
+  const config = createConfig(
+    getDefaultConfig({
+      // Required API Keys
+      alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID!,
+      walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+
+      // Required
+      appName: "Presale Challenge",
+
+      // Optional
+      appDescription: "Apresale demo app to buy tokens",
+      chains: [polygonMumbai],
+    }),
   )
-
-  const config = createConfig({
-    autoConnect: true,
-    connectors: [new InjectedConnector({ chains })],
-    publicClient,
-  })
 
   return (
     <>
@@ -52,9 +54,9 @@ export default function App(props: AppProps) {
         }}
       >
         <WagmiConfig config={config}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ConnectKitProvider>
+            <Layout>{mounted && <Component {...pageProps} />}</Layout>
+          </ConnectKitProvider>
         </WagmiConfig>
       </MantineProvider>
     </>

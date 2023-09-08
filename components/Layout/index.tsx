@@ -12,14 +12,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         {/* FOOTER */}
         <footer className="layout">
           <Text
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             sx={{ fontFamily: "Greycliff CF, sans-serif" }}
             ta="center"
             fz="xl"
             fw={700}
           >
-            Indigo cyan gradient
+            FOOTER
           </Text>
         </footer>
       </div>
