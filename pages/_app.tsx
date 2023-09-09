@@ -12,14 +12,9 @@ export default function App(props: AppProps) {
 
   const config = createConfig(
     getDefaultConfig({
-      // Required API Keys
       alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_ID!,
       walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-
-      // Required
       appName: "Presale Challenge",
-
-      // Optional
       appDescription: "Apresale demo app to buy tokens",
       chains: [polygonMumbai],
     }),

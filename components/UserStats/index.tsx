@@ -1,6 +1,7 @@
 import { Text, Card } from "@mantine/core"
 import dynamic from "next/dynamic"
 import { useAccount } from "wagmi"
+import { useStyles } from "@/styles/mantineStyles"
 import { TSTK_TOKEN } from "@/utils/constants"
 
 const TokenAmount = dynamic(() => import("./TokenAmount"), {
@@ -8,20 +9,12 @@ const TokenAmount = dynamic(() => import("./TokenAmount"), {
 })
 
 const UserStats = ({ maxWalletBuy }: { maxWalletBuy: bigint }) => {
+  const { classes } = useStyles()
   const { address } = useAccount()
 
   return (
-    <Card
-      withBorder
-      radius="md"
-      padding="xl"
-      h="100%"
-      sx={(theme) => ({
-        backgroundColor:
-          theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-      })}
-    >
-      <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
+    <Card withBorder radius="md" className={classes.cardContainer}>
+      <Text fz="xs" tt="uppercase" w="100%" fw={700} c="dimmed">
         User {TSTK_TOKEN.symbol} Balance
       </Text>
       {address ? (

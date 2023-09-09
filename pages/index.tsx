@@ -2,6 +2,7 @@ import { Flex, Skeleton } from "@mantine/core"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import usePresaleContract from "@/hooks/usePresaleContract"
+import { CARD_MAX_HEIGHT, useStyles } from "@/styles/mantineStyles"
 
 const Countdown = dynamic(() => import("@/components/Countdown"), {
   ssr: false,
@@ -17,8 +18,11 @@ const TokenStats = dynamic(() => import("@/components/TokenStats"), {
 })
 
 export default function Home() {
-  const { data, refetch, isLoading } = usePresaleContract()
-  const { availableAmount, price, maxWalletBuy, timestamp, maxTokens } = data
+  const { classes } = useStyles()
+
+  const { presaleData, isLoading } = usePresaleContract()
+  const { availableAmount, price, maxWalletBuy, timestamp, maxTokens } =
+    presaleData
 
   return (
     <>
@@ -26,19 +30,30 @@ export default function Home() {
         <title>Presale</title>
         <meta name="description" content="A challenge" />
       </Head>
-      <Flex className="container" direction="column" gap={20}>
-        <Skeleton visible={isLoading}>
-          <Countdown timestamp={timestamp} />
-        </Skeleton>
+      <Flex className={classes.container}>
+        <Flex className={classes.card} direction="column">
+          <Flex
+            className={classes.cardStats}
+            direction="row"
+            justify="space-between"
+          >
+            <Skeleton visible={isLoading} mah={CARD_MAX_HEIGHT}>
+              <Countdown timestamp={timestamp} />
+            </Skeleton>
 
-        <Skeleton visible={isLoading}>
-          <UserStats maxWalletBuy={maxWalletBuy} />
-        </Skeleton>
-        <Skeleton visible={isLoading}>
-          <TokenStats availableAmount={availableAmount} maxTokens={maxTokens} />
-        </Skeleton>
+            <Skeleton visible={isLoading} mah={CARD_MAX_HEIGHT}>
+              <UserStats maxWalletBuy={maxWalletBuy} />
+            </Skeleton>
+            <Skeleton visible={isLoading} mah={CARD_MAX_HEIGHT}>
+              <TokenStats
+                availableAmount={availableAmount}
+                maxTokens={maxTokens}
+              />
+            </Skeleton>
+          </Flex>
 
-        <UserAmount price={price} maxBuy={maxWalletBuy} refetch={refetch} />
+          <UserAmount price={price} maxBuy={maxWalletBuy} />
+        </Flex>
       </Flex>
     </>
   )
