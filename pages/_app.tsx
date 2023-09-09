@@ -3,15 +3,12 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import { AppProps } from "next/app"
 import Head from "next/head"
 import "@/styles/globals.css"
-import { useEffect, useState } from "react"
 import { WagmiConfig, createConfig } from "wagmi"
 import { polygonMumbai } from "wagmi/chains"
 import Layout from "@/components/Layout"
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
 
   const config = createConfig(
     getDefaultConfig({
@@ -55,7 +52,9 @@ export default function App(props: AppProps) {
       >
         <WagmiConfig config={config}>
           <ConnectKitProvider>
-            <Layout>{mounted && <Component {...pageProps} />}</Layout>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </ConnectKitProvider>
         </WagmiConfig>
       </MantineProvider>
