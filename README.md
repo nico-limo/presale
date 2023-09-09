@@ -119,6 +119,7 @@ List of tools, frameworks, libraries, or APIs used in the project. You can also 
 - [Mantine](https://mantine.dev/)
 - [Viem](https://viem.sh/)
 - [Wagmi](https://wagmi.sh/)
+- [ConnectKit](https://family.co/)
 - [react-countdown](https://www.npmjs.com/package/react-countdown)
 
 ## Vercel Deployment
