@@ -17,7 +17,7 @@ const TokenStats = ({
   return (
     <Card withBorder radius="md" className={classes.cardContainer}>
       <Text fz="xs" tt="uppercase" w="100%" fw={700} c="dimmed">
-        Remaining {TSTK_TOKEN.symbol} available
+        {`Remaining ${TSTK_TOKEN.symbol} available`}
       </Text>
       <Text fz="lg" fw={500} w="100%">
         {formatAvailable} / {formatTotal}
